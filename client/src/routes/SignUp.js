@@ -1,5 +1,8 @@
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
     return (
@@ -16,14 +19,27 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUp({ user, setUser }) {
+
+    const [userName, setUserName] = useState('');
+    const [pass, setPass] = useState('');
+
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            username: data.get('username'),
-            password: data.get('password'),
-        });
+
+        axios.post('http://localhost:8000/api/v1/user/signup', {
+            userName,
+            pass,
+        }).then((res) => {
+            navigate('/signin');
+            setUserName('');
+            setPass('');
+        }).catch((error) => {
+            console.log(error);
+        })
+
     };
 
     return (
@@ -57,6 +73,8 @@ export default function SignUp() {
                                     label="Username"
                                     name="username"
                                     autoComplete="username"
+                                    value={userName}
+                                    onChange={(e) => { setUserName(e.target.value) }}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -68,6 +86,8 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={pass}
+                                    onChange={(e) => { setPass(e.target.value) }}
                                 />
                             </Grid>
 

@@ -4,7 +4,8 @@ import socketIO from 'socket.io-client';
 import SignIn from './routes/SignIn';
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import SignUp from './routes/SignUp';
-import { useState } from 'react';
+import Dashboard from './routes/Dashboard';
+import { useEffect, useState } from 'react';
 
 const socket = socketIO.connect('http://localhost:8000');
 
@@ -17,14 +18,21 @@ function App() {
 
       {/* <SignIn /> */}
 
-      <Routes>
-        <Route path='/' element={<SignIn user={user} setUser={setUser} />} />
-        <Route path='/signin' element={<SignIn user={user} setUser={setUser} />} />
-        <Route path='/signup' element={<SignUp />} />
-        {/* <Route path='/signin' element={<SignIn />} />
-        <Route path='/signin' element={<SignIn />} />
-        <Route path='/signin' element={<SignIn />} /> */}
-      </Routes>
+      {user ? (<>
+        <Routes>
+          <Route path='/' element={<Dashboard user={user} setUser={setUser} />} />
+          {/* <Route path='/signin' element={<SignIn user={user} setUser={setUser} />} /> */}
+          {/* <Route path='/signup' element={<SignUp />} /> */}
+          <Route path='/dashboard' element={<Dashboard user={user} setUser={setUser} />} />
+        </Routes>
+      </>) : (<>
+        <Routes>
+          <Route path='/' element={<SignIn user={user} setUser={setUser} />} />
+          <Route path='/signin' element={<SignIn user={user} setUser={setUser} />} />
+          <Route path='/signup' element={<SignUp />} />
+          {/* <Route path='/dashboard' element={<Dashboard user={user} setUser={setUser} />} /> */}
+        </Routes>
+      </>)}
 
     </div>
   );

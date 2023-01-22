@@ -16,7 +16,7 @@ router.route('/signup').post(async (req, res) => {
 
         await User.create({ userName, pass })
             .then(() => res.status(200).json("User added!"))
-            .catch((err) => res.json(`Error code: ${err}`));
+            .catch((err) => res.status(400).json(`Error code: ${err}`));
     });
 
 });
@@ -27,11 +27,12 @@ router.route('/signin').post(async (req, res) => {
 
     User.findOne({ userName }, function (err, user) {
         if (!user) {
-            res.send("User not found!");
+            res.status(403).send("User not found!");
         } else if (user) {
             bcrypt.compare(pass, user.pass, function(err, result) {
                 if (result == true) {
-                    res.send("Logged in successfully!");
+                    // res.send("Logged in successfully!");
+                    res.json(user.userName);
                 }
                 else {
                     res.status(403).send("Password incorrect!");

@@ -28,15 +28,13 @@ export default function SignIn({user, setUser}) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
 
         axios.post('http://localhost:8000/api/v1/user/signin', {
             userName,
             pass,
         }).then((res) => {
             setUser(res.data);
-            console.log(res.data)
-            // navigate('/dashboard');
+            navigate('/dashboard');
             setUserName('');
             setPass('');
         }).catch((error) => {
@@ -76,6 +74,7 @@ export default function SignIn({user, setUser}) {
                             name="username"
                             autoComplete="username"
                             autoFocus
+                            value={userName}
                             onChange={(e) => { setUserName(e.target.value) }}
                         />
                         <TextField
@@ -87,6 +86,7 @@ export default function SignIn({user, setUser}) {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={pass}
                             onChange={(e) => { setPass(e.target.value) }}
                         />
                         <Button
