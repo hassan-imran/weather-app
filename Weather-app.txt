@@ -1,0 +1,9 @@
+1. Weather api data dump on BE.
+2. Upon loading application 
+3. A socket ID of a user in the DB means user is connected
+4. Get data periodically from the API on BE and broadcast to all users. FE pr socket ko receive krna.
+5. 
+
+
+Got geonames / Geocoding (lat/long based on city name) from https://www.geonames.org/
+
