@@ -34,6 +34,14 @@ export default function SignIn({user, setUser}) {
             pass,
         }).then((res) => {
             setUser(res.data);
+            // console.log(res.data.cities);
+            res.data.cities.forEach((city)=>{
+                axios.post(`http://localhost:8000/api/v1/weather/city`, {
+                    city
+                }).then((res)=>{
+                    console.log(res)
+                }).catch((err)=> console.error(err))
+            })
             navigate('/dashboard');
             setUserName('');
             setPass('');

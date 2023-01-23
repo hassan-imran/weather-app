@@ -12,7 +12,7 @@ router.route('/city').post(async (req, res) => {
     Weather.findOne({ city }, async function (err, cityExists) {
         if (!cityExists) {
             await Weather.create({ city, details })
-                .then(() => res.status(200).json("City added!"))
+                .then(() => res.status(200).json(details))
                 .catch((err) => res.json(`Error code: ${err}`));
         };
         if(cityExists) {
@@ -20,7 +20,7 @@ router.route('/city').post(async (req, res) => {
                 if (err) {
                     res.json(err);
                 } else {
-                    res.json("City weather updated!");
+                    res.json(details);
                 }
             })
         }

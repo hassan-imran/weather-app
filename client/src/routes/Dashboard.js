@@ -58,9 +58,21 @@ export default function Dashboard({ user, setUser }) {
                         {user.userName}
                     </Typography>
 
+                    <Box>
+                        Last updated: {Date(user.updatedAt)} {/* put the updated weather date here not the user date */}
+                    </Box>
+
+                    <Box textAlign='left'>
+
+                        {
+                            user.cities.map((city, key) => {
+                                
+                            })
+                        }
+
+                    </Box>
+
                     <Button
-                        // type="submit"
-                        // fullWidth
                         onClick={handleSubmit}
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
