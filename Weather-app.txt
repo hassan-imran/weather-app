@@ -7,3 +7,8 @@
 
 Got geonames / Geocoding (lat/long based on city name) from https://www.geonames.org/
 
+pass meaningful errors in response to signup / signin
+broadcast thru socket io
+Make data included in the schema
+Make timer for updating data
+Make UI better
