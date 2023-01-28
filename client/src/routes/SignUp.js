@@ -19,7 +19,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp({ user, setUser }) {
+export default function SignUp({ user, setUser, userWeather, setUserWeather }) {
 
     const [userName, setUserName] = useState('');
     const [pass, setPass] = useState('');

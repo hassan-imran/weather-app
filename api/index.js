@@ -10,6 +10,7 @@ const connectDB = require('./config/db');
 //Routes
 const userRoutes = require('./routes/user');
 const weatherRoutes = require('./routes/weather');
+// const v1 = require('./routes/v1');
 
 // const activityRoutes = require('./routes/activityRoutes')
 
@@ -29,11 +30,13 @@ const socketIO = require('socket.io')(http, {
   }
 });
 
+global.socketIO = socketIO;
+
 //Add this before the app.get() block
 socketIO.on('connection', (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
   socket.on('disconnect', () => {
-    console.log('🔥: A user disconnected');
+    console.log(`🔥: ${socket.id} user disconnected`);
   });
 });
 
@@ -42,8 +45,9 @@ app.get("/", (req, res) => {
   res.send(process.env.PORT);
 })
 
-app.use("/api/v1/user", userRoutes);
+// app.use("/api/v1", v1);
 app.use("/api/v1/weather", weatherRoutes);
+app.use("/api/v1/user/", userRoutes);
 // app.use("/api/v1/user/signup", (req, res) => {
 //   res.json(req.body.userName);
 // });

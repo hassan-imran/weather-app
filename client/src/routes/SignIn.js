@@ -19,7 +19,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn({user, setUser}) {
+export default function SignIn({ user, setUser, userWeather, setUserWeather }) {
 
     const [userName, setUserName] = useState('');
     const [pass, setPass] = useState('');
@@ -35,12 +35,19 @@ export default function SignIn({user, setUser}) {
         }).then((res) => {
             setUser(res.data);
             // console.log(res.data.cities);
-            res.data.cities.forEach((city)=>{
+            // axios.post(`http://localhost:8000/api/v1/weather/city`, {
+            //     cities: res.data.cities,
+            // }).then((res)=>{
+            //     setUserWeather(res.data);
+            //     console.log(res.data);
+            // })
+            res.data.cities.forEach((city) => {
                 axios.post(`http://localhost:8000/api/v1/weather/city`, {
                     city
-                }).then((res)=>{
-                    console.log(res)
-                }).catch((err)=> console.error(err))
+                }).then(async (res) => {
+                    await setUserWeather({ ...userWeather, [city]: res, });
+                    console.log(userWeather);
+                }).catch((err) => console.error(err))
             })
             navigate('/dashboard');
             setUserName('');

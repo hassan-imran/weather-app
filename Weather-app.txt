@@ -12,3 +12,6 @@ broadcast thru socket io
 Make data included in the schema
 Make timer for updating data
 Make UI better
+
+user & socket both state level vars
+as soon as both true push in DB and then actions

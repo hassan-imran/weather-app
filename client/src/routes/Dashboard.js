@@ -1,5 +1,6 @@
-import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material';
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider, Paper } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import { styled, Stack } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -18,7 +19,13 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Dashboard({ user, setUser }) {
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    padding: theme.spacing(1),
+    textAlign: 'center',
+}));
+
+export default function Dashboard({ user, setUser, userWeather, setUserWeather }) {
 
     const navigate = useNavigate();
 
@@ -26,15 +33,14 @@ export default function Dashboard({ user, setUser }) {
         if (!user) {
             navigate('/signin');
         }
-    }, [user])
+        // console.log(userWeather);
+    }, [user, userWeather])
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setUser('');
         navigate('/signin')
     };
-
-    console.log(user);
 
     return (
         <ThemeProvider theme={theme}>
@@ -63,13 +69,15 @@ export default function Dashboard({ user, setUser }) {
                     </Box>
 
                     <Box textAlign='left'>
+                        <Stack spacing={2}>
 
-                        {
-                            user.cities.map((city, key) => {
-                                
-                            })
-                        }
-
+                            {
+                                console.log(userWeather)
+                                // user.cities.map((city, key) => (
+                                //     <Item key={key}>{userWeather[city].location.name}</Item>
+                                // ))
+                            }
+                        </Stack>
                     </Box>
 
                     <Button
